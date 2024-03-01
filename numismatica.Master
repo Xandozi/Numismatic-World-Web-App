@@ -1,0 +1,119 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="numismatica.master.cs" Inherits="Numismatica.numismatica" %>
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Numismatic World</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+        (function () {
+            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/65d504768d261e1b5f62dbc0/1hn41iri6';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    </script>
+    <!--End of Tawk.to Script-->
+    <asp:PlaceHolder runat="server"></asp:PlaceHolder>
+    <style>
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            margin-bottom: 10px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+            nav ul li {
+                display: inline;
+                margin-right: 15px;
+            }
+
+                nav ul li a {
+                    color: #fff;
+                    text-decoration: none;
+                }
+
+                    nav ul li a:hover {
+                        text-decoration: underline;
+                    }
+
+        .container {
+            padding: 5px;
+        }
+
+        footer {
+            margin-top: 20px;
+            background-color: #333;
+            color: white;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        #MainContent {
+            height: 600px;
+        }
+
+        .list-group-item-action:hover {
+            background-color: #0094ff !important;
+            border-color: #000000 !important;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <header>
+            <div class="container d-flex justify-content-between">
+                <h1 class="text-center" style="font-size: 28px;">Numismatic World Web App</h1>
+                <nav>
+                    <ul>
+                        <li><a href="home.aspx">Home</a></li>
+                        <li><a href="coins.aspx">Coins</a></li>
+                        <% if (Session["logged"] == "yes")
+                            { %>
+                        <li><a href="myCollection.aspx?id=<%= Session["user_code"] %>">My Collection</a></li>
+                        <% } %>
+                        <li>
+                            <asp:Button ID="btn_user" runat="server" CssClass="btn btn-outline-light" Text="<%# DetermineLoginButtonText() %>" CausesValidation="false" OnClick="btn_user_Click" />
+                        </li>
+                        <% if (Session["logged"] == "yes")
+                            { %>
+                        <li>
+                            <asp:Button ID="btn_logout" runat="server" CssClass="btn btn-outline-light" Text="Logout" CausesValidation="false" OnClick="btn_logout_Click" />
+                        </li>
+                        <% } %>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <asp:ContentPlaceHolder ID="MainContent" runat="server">
+        </asp:ContentPlaceHolder>
+
+        <footer>
+            <div class="container">
+                <p>© <%: DateTime.Now.Year %> Numismatic World. All rights reserved.</p>
+            </div>
+        </footer>
+    </form>
+</body>
+
+</html>
